@@ -1,6 +1,5 @@
-//Constructor
 class Display {
-    constructor(displayValorAnterior, displayValorActual){
+    constructor(displayValorAnterior, displayValorActual) {
         this.displayValorActual = displayValorActual;
         this.displayValorAnterior = displayValorAnterior;
         this.calculador = new Calculadora();
@@ -9,25 +8,25 @@ class Display {
         this.valorAnterior = '';
         this.signos = {
             sumar: '+',
-            restar: '-',
-            multiplicar: 'x',
             dividir: '%',
+            multiplicar: 'x',
+            restar: '-', 
         }
     }
 
-    borrar(){
-        this.valorActual = this.valorActual.toString().slice(0, -1);
+    borrar() {
+        this.valorActual = this.valorActual.toString().slice(0,-1);
         this.imprimirValores();
     }
 
-    borrarTodo(){
+    borrarTodo() {
         this.valorActual = '';
         this.valorAnterior = '';
         this.tipoOperacion = undefined;
         this.imprimirValores();
     }
 
-    computar(tipo){
+    computar(tipo) {
         this.tipoOperacion !== 'igual' && this.calcular();
         this.tipoOperacion = tipo;
         this.valorAnterior = this.valorActual || this.valorAnterior;
@@ -35,29 +34,22 @@ class Display {
         this.imprimirValores();
     }
 
-    agregarNumero(numero){
-        if (numero === '.' && this.valorActual.includes('.')) return
+    agregarNumero(numero) {
+        if(numero === '.' && this.valorActual.includes('.')) return
         this.valorActual = this.valorActual.toString() + numero.toString();
         this.imprimirValores();
     }
 
-    imprimirValores(){
+    imprimirValores() {
         this.displayValorActual.textContent = this.valorActual;
         this.displayValorAnterior.textContent = `${this.valorAnterior} ${this.signos[this.tipoOperacion] || ''}`;
     }
 
-    calcular(){
-        const valorActual = parseFloat(this.valorAnterior);
+    calcular() {
         const valorAnterior = parseFloat(this.valorAnterior);
-        if(isNaN(valorActual) || isNaN(valorAnterior)) return
-        this.valorActual = this.calculador[this.tipoOperacion]
-        (valorAnterior, valorActual);
+        const valorActual = parseFloat(this.valorActual);
+
+        if( isNaN(valorActual)  || isNaN(valorAnterior) ) return
+        this.valorActual = this.calculador[this.tipoOperacion](valorAnterior, valorActual);
     }
 }
-//Calculos
-
-//agregarNumero
-
-//imprimaValores
-
-//Computar
